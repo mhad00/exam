@@ -1,114 +1,82 @@
 #include <iostream>
-#include <string>
-#include <vector>
 #include <algorithm>
-
 using namespace std;
 
-class Vemaybay {
+class Vemaybay
+{
 private:
-    string tenchuyen;
-    string ngaybay;
-    int giave;
 public:
-    Vemaybay(string ten, string ngay, int gia) {
-        tenchuyen = ten;
-        ngaybay = ngay;
-        giave = gia;
-    }
-    
-    int getgiave() {
+    string tenchuyen;
+    int ngaybay;
+    double giave;
+
+    Vemaybay(string _tenchuyen, int _ngaybay, double _giave)
+    {
+        tenchuyen = _tenchuyen;
+        ngaybay = _ngaybay;
+        giave = _giave;
+    };
+    ~Vemaybay(){};
+    void nhap()
+    {
+        cin.ignore();
+        cout << "Ten chuyen  :";
+        getline(cin, tenchuyen);
+        cout << "Ngay bay : ";
+        cin >> ngaybay;
+        cout << "Gia ve : ";
+        cin >> giave;
+    };
+    void xuat()
+    {
+        cout << "Ten chuyen :" << tenchuyen << '\n';
+        cout << "Ngay bay :" << ngaybay << '\n';
+        cout << "Gia ve :" << giave << '\n';
+    };
+    double getgiave()
+    {
         return giave;
-    }
+    };
 };
 
-class Nguoi {
+class Nguoi
+{
 public:
     string hoten;
     string gioitinh;
     int tuoi;
 
-    Nguoi(string ten, string gt, int age) {
-        hoten = ten;
-        gioitinh = gt;
-        tuoi = age;
+    Nguoi(string _ten, string _gioitinh, int _tuoi)
+    {
+        hoten = _ten;
+        gioitinh = _gioitinh;
+        this->tuoi = _tuoi;
     }
-};
-
-class HanhKhach : public Nguoi {
-private:
-    vector<Vemaybay*> ve;
-    int soluong;
-public:
-    HanhKhach(string ten, string gt, int age) : Nguoi(ten, gt, age) {
-        soluong = 0;
-    }
-    
-    void themVe(Vemaybay* v) {
-        ve.push_back(v);
-        soluong++;
-    }
-    
-    int tongtien() {
-        int total = 0;
-        for (int i = 0; i < soluong; i++) {
-            total += ve[i]->getgiave();
-        }
-        return total;
-    }
-    
-    void xuat() {
-        cout << "Ho ten: " << hoten << endl;
-        cout << "Gioi tinh: " << gioitinh << endl;
-        cout << "Tuoi: " << tuoi << endl;
-        cout << "So luong ve: " << soluong << endl;
-        cout << "Tong tien: " << tongtien() << endl;
-    }
-};
-
-bool compareHanhKhach(HanhKhach* khach1, HanhKhach* khach2) {
-    return khach1->tongtien() > khach2->tongtien();
-}
-
-int main() {
-    int n;
-    cout << "Nhap vao so luong hanh khach: ";
-    cin >> n;
-    
-    vector<HanhKhach*> danhSachHanhKhach;
-
-    for (int i = 0; i < n; i++) {
-        string hoten, gioitinh;
-        int tuoi;
-        cout << "Nhap vao thong tin hanh khach " << i + 1 << endl;
-        cout << "Ho ten: ";
+    ~Nguoi(){};
+    void nhap()
+    {
         cin.ignore();
+        cout << "Ho ten : ";
         getline(cin, hoten);
-        cout << "Gioi tinh: ";
-        getline(cin, gioitinh);
-        cout << "Tuoi: ";
+        cout << "Gioi tinh : ";
+        cin >> gioitinh;
+        cout << "Tuoi : ";
         cin >> tuoi;
-        
-        HanhKhach* khach = new HanhKhach(hoten, gioitinh, tuoi);
-        danhSachHanhKhach.push_back(khach);
-    }
-    
-    for (int i = 0; i < danhSachHanhKhach.size(); i++) {
-        cout << endl << "Thong tin hanh khach " << i + 1 << endl;
-        danhSachHanhKhach[i]->xuat();
-    }
-    
-    sort(danhSachHanhKhach.begin(), danhSachHanhKhach.end(), compareHanhKhach);
-    
-    cout << endl << "Danh sach hanh khach sap xep theo chieu giam dan cua Tong tien: " << endl;
-    for (int i = 0; i < danhSachHanhKhach.size(); i++) {
-        danhSachHanhKhach[i]->xuat();
-    }
+    };
+    void xuat()
+    {
+        cout << hoten << '\n';
+        cout << gioitinh << '\n';
+        cout << tuoi << '\n';
+    };
+};
 
-    // Giải phóng bộ nhớ
-    for (int i = 0; i < danhSachHanhKhach.size(); i++) {
-        delete danhSachHanhKhach[i];
-    }
+
+int main()
+{
+    int n;
+    cout << "Nhap so khach : ";
+    cin >> n;
     
     return 0;
 }
